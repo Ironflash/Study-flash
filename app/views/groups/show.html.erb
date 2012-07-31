@@ -1,0 +1,17 @@
+
+<p>
+  <b>Name:</b>
+  <%= @group.name %>
+</p>
+
+<a href="#" id="startTimer">Start</a>
+  <a href="#" id="stopTimer">Stop</a>
+  <form>
+  	<label>Seconds:</label>
+  	<input type="text" id="interval"/>
+  </form>
+
+  <%= render 'shared/reg_card_form', group: @group.id %>
+
+
+<%= link_to 'Edit', edit_group_path(@group) %>

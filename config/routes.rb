@@ -1,5 +1,9 @@
 StudyFlash::Application.routes.draw do
   
+  resources :groups
+
+  resources :reg_cards
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 
