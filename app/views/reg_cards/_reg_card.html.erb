@@ -3,7 +3,10 @@
     <span class="answer">
       Answer: <%= reg_card.answer %>
       <% if current_user.admin? || current_user.id == @reg_card.user_id %>
-			<%= link_to "delete", reg_card, method: :delete, data: { confirm: "You sure?",class: "delete"}, title: reg_card.question,class: "delete"%>
+      		<span class="settings">
+      		<%= link_to "edit", edit_reg_card_path(reg_card)%>	|
+			<%= link_to "delete", reg_card, method: :delete, data: { confirm: "You sure?",class: "settings"}, title: reg_card.question%>
+			</span>
 	  <%end%>
     </span>
 </li>

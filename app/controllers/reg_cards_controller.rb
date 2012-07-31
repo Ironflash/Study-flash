@@ -48,7 +48,7 @@ class RegCardsController < ApplicationController
         format.html { redirect_to group_path(@reg_card.group) }
         format.json { render json: @reg_card, status: :created, location: @reg_card }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to group_path(@reg_card.group)  }
         format.json { render json: @reg_card.errors, status: :unprocessable_entity }
       end
     end
@@ -65,7 +65,7 @@ class RegCardsController < ApplicationController
         format.html { redirect_to @reg_card }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.html { render "edit" }
         format.json { render json: @reg_card.errors, status: :unprocessable_entity }
       end
     end

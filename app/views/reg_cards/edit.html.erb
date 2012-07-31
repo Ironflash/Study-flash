@@ -1,9 +1,7 @@
-<h1>Editing reg_card</h1>
+<h1>Edit Card</h1>
 
 <div class="row">
   <div class="span6 offset3">
-	<%= render 'form' %>
-
-	<%= link_to 'Show', @reg_card %>
+	<%= render 'shared/reg_card_form',group: params[:id] %>
   </div>
 </div>
