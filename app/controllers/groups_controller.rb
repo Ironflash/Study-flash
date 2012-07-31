@@ -16,6 +16,7 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     @reg_card = current_user.reg_cards.build if signed_in?
+    @reg_cards = @group.reg_cards.paginate(page: params[:page])
     gon.reg_cards = @group.reg_cards.all
 
     respond_to do |format|

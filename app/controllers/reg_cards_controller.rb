@@ -79,7 +79,7 @@ class RegCardsController < ApplicationController
     flash[:success] = "Card Destroyed!"
 
     respond_to do |format|
-      format.html { redirect_to reg_cards_url }
+      format.html { redirect_to group_path(Group.find(@reg_card.group_id)) }
       format.json { head :no_content }
     end
   end

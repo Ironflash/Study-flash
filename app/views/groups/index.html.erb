@@ -3,10 +3,10 @@
 
 <%= will_paginate %>
 
-<ul class="group">
+<ul class="groups">
     <%= render @groups %>
 </ul>
 
 <%= will_paginate %>
 
-<%= link_to "Add new group", new_group_path %>
+<%= link_to "Add new group", new_group_path,class: "btn btn-primary" %>

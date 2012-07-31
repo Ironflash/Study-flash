@@ -1,17 +1,22 @@
+<div class="row">
+	<div class="span2">
+		<h1><%= @group.name %></h1>
 
-<p>
-  <b>Name:</b>
-  <%= @group.name %>
-</p>
-
-<a href="#" id="startTimer">Start</a>
-  <a href="#" id="stopTimer">Stop</a>
-  <form>
-  	<label>Seconds:</label>
-  	<input type="text" id="interval"/>
-  </form>
-
-  <%= render 'shared/reg_card_form', group: @group.id %>
-
-
-<%= link_to 'Edit', edit_group_path(@group) %>
+		<form>
+			<label>Seconds:</label>
+			<input type="text" id="interval"/>
+		</form>
+		<a href="#" id="startTimer" class="btn">Start</a>
+		<a href="#" id="stopTimer" class ="btn">Stop</a>
+	</div>
+	<div class="span10 cards" >
+		<h1>Cards:</h1>
+		<% if @group.reg_cards.any? %>
+		      <ul>
+		        <%= render @reg_cards, group: @group.id %>
+		      </ul>
+		      <%= will_paginate @reg_cards %>
+		    <% end %>
+		<%= render 'shared/reg_card_form', group: @group.id %>
+	</div>
+</div>

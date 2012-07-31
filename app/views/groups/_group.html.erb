@@ -1,5 +1,10 @@
 <li>
   <%= link_to group.name, group %>
+  <% if current_user.admin? || current_user?(User.find(group.user_id))%>
+  	<span class="options">
+  	| <%= link_to "edit", edit_group_path(group) ,class: "edit"%>
     | <%= link_to "delete", group, method: :delete,
-                                  data: { confirm: "You sure?" } %>
+                                  data: { confirm: "You sure?" } ,class: "delete"%>
+    </span>
+  <%end%>
 </li>
