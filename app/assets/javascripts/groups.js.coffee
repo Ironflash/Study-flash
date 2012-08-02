@@ -19,11 +19,14 @@ $ ->
 		window.num_cards = gon.reg_cards.length if gon
 		window.alertInterval = setInterval ->
 												display()
-											, $("#interval").val()*1000
+											, $("#interval").val()*60000 
 
 	$("#stopTimer").click ->
 		clearInterval(window.alertInterval)
 		false
+
+	$('#question-pop').on 'shown', ->
+		clearInterval(window.alertInterval)
 
 	$("#show-answer").click ->
 		$('#answer-pop').modal('show')
@@ -32,5 +35,5 @@ $ ->
 		clearInterval(window.alertInterval)
 		window.alertInterval = setInterval ->
 												display()
-											, $("#interval").val()*1000
+											, $("#interval").val()*60000
 	
