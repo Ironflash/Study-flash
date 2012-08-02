@@ -16,12 +16,17 @@ $ ->
 	$(".collapse").collapse()
 
 	$("#startTimer").click ->
+		$("#timerStatus").removeClass('alert-error').addClass('alert-success');
+		$("#timerStatus").text("Timer is on")
+		window.intRegex = /^\d+$/
 		window.num_cards = gon.reg_cards.length if gon
 		window.alertInterval = setInterval ->
 												display()
-											, $("#interval").val()*60000 
+											, $("#interval").val()*60000 if intRegex.test($("#interval").val()) && $("#interval").val() > 0
 
 	$("#stopTimer").click ->
+		$("#timerStatus").removeClass('alert-success').addClass('alert-error');
+		$("#timerStatus").text("Timer is off")
 		clearInterval(window.alertInterval)
 		false
 
@@ -35,5 +40,5 @@ $ ->
 		clearInterval(window.alertInterval)
 		window.alertInterval = setInterval ->
 												display()
-											, $("#interval").val()*60000
+											, $("#interval").val()*60000 if intRegex.test($("#interval").val()) && $("#interval").val() > 0
 	
