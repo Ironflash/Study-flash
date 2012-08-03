@@ -5,7 +5,16 @@
 		<form>
 			<label>Minutes:</label>
 			<input type="text" id="interval"/>
+
+			<label>Number of cards to display each time:</label>
+			<input type="text" id="times"/>
 		</form>
+		<div class="btn-group Repeat Cards:" data-toggle="buttons-radio">
+		  <button class="btn" id="repeat-none">None</button>
+		  <button class="btn" id="repeat-done">Once all have been shown once</button>
+		  <button class="btn" id="repeat-period">Just not in the same period</button>
+		  <button class="btn" id="repeat-anytime">Anytime</button>
+		</div>
 		<div class="alert alert-error" id="timerStatus">
 		  Timer is off
 		</div>

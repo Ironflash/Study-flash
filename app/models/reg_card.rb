@@ -1,5 +1,5 @@
 class RegCard < ActiveRecord::Base
-  attr_accessible :answer, :group_id, :question, :user_id
+  attr_accessible :answer, :group_id, :question, :user_id, :displayed
 
   belongs_to :user
   belongs_to :group

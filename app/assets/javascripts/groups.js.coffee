@@ -3,42 +3,93 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 display = ->
-		rand_num = Math.floor(Math.random() * window.num_cards)
-		alert ("Question Time!")
-		$('#question-pop .modal-body').text(gon.reg_cards[rand_num].question) if gon
-		$('#answer-pop .modal-body').text(gon.reg_cards[rand_num].answer) if gon
-		# $('.answer-inner').text(gon.reg_cards[rand_num].answer) if gon
+		window.rand_num = Math.floor(Math.random() * window.num_cards)
+		if window.repeat != 3
+			while gon.reg_cards[window.rand_num].displayed
+				window.rand_num = Math.floor(Math.random() * window.num_cards)
+		$('#question-pop .modal-body').text(gon.reg_cards[window.rand_num].question) if gon
+		$('#answer-pop .modal-body').text(gon.reg_cards[window.rand_num].answer) if gon
 		$('#question-pop').modal('show')
 		false
-		
 
-$ ->
-	$(".collapse").collapse()
-
-	$("#startTimer").click ->
-		$("#timerStatus").removeClass('alert-error').addClass('alert-success');
-		$("#timerStatus").text("Timer is on")
-		window.intRegex = /^\d+$/
-		window.num_cards = gon.reg_cards.length if gon
+card_sequence = ->
 		window.alertInterval = setInterval ->
+												alert ("Question Time!")
 												display()
-											, $("#interval").val()*60000 if intRegex.test($("#interval").val()) && $("#interval").val() > 0
+												false
+											, $("#interval").val()*1000 if window.intRegex.test($("#interval").val()) && $("#interval").val() > 0
 
-	$("#stopTimer").click ->
+reset_displayed = ->
+		gon.reg_cards[x].displayed = false for x in [0..window.num_cards-1] 
+		window.num_displayed = 0
+		
+cancel_timer = ->
 		$("#timerStatus").removeClass('alert-success').addClass('alert-error');
 		$("#timerStatus").text("Timer is off")
 		clearInterval(window.alertInterval)
 		false
+$ ->
+	$('.nav-tabs').button()
+
+	$("#startTimer").click ->
+		window.count = 0
+		window.num_displayed = 0
+		reset_displayed()
+		$("#timerStatus").removeClass('alert-error').addClass('alert-success');
+		$("#timerStatus").text("Timer is on")
+		window.intRegex = /^\d+$/
+		window.num_cards = gon.reg_cards.length if gon
+		if window.intRegex.test($('#times').val()) && $('#times').val() > 0
+			window.times = $('#times').val() 
+		else
+			window.times = 1
+		card_sequence()
+
+	$("#stopTimer").click ->
+		cancel_timer()
 
 	$('#question-pop').on 'shown', ->
 		clearInterval(window.alertInterval)
+		window.count += 1
+		window.num_displayed += 1
+		gon.reg_cards[window.rand_num].displayed = true
 
 	$("#show-answer").click ->
 		$('#answer-pop').modal('show')
 
 	$('#answer-pop').on 'hidden', ->
-		clearInterval(window.alertInterval)
-		window.alertInterval = setInterval ->
-												display()
-											, $("#interval").val()*60000 if intRegex.test($("#interval").val()) && $("#interval").val() > 0
+		done = false
+		#check if all cards have been shown
+		if window.num_displayed == window.num_cards
+			if window.repeat == 0
+				done = true
+				cancel_timer()
+			else if window.repeat == 2
+				done = true
+				reset_displayed()
+				clearInterval(window.alertInterval)
+				window.count = 0
+				card_sequence()
+			else
+				reset_displayed()
+		if !done
+			if window.count < window.times 
+				display()
+			else
+				clearInterval(window.alertInterval)
+				window.count = 0
+				card_sequence()
+
+	#repeat none when = 0
+	#       once cards have all been shown when = 1
+	#		anytime but per period when = 2
+	#		anytime when = 3
+	$('#repeat-none').click ->
+		window.repeat = 0
+	$('#repeat-done').click ->
+		window.repeat = 1
+	$('#repeat-period').click ->
+		window.repeat = 2
+	$('#repeat-anytime').click ->
+		window.repeat = 3
 	
