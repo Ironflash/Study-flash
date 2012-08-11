@@ -9,12 +9,14 @@
 			<label>Number of cards to display each time:</label>
 			<input type="text" id="times"/>
 		</form>
+		<label>Repeat Cards:</label>
 		<div class="btn-group Repeat Cards:" data-toggle="buttons-radio">
 		  <button class="btn" id="repeat-none">None</button>
 		  <button class="btn" id="repeat-done">Once all have been shown once</button>
 		  <button class="btn" id="repeat-period">Just not in the same period</button>
 		  <button class="btn" id="repeat-anytime">Anytime</button>
 		</div>
+		<br>
 		<div class="alert alert-error" id="timerStatus">
 		  Timer is off
 		</div>
@@ -46,6 +48,7 @@
 		</div>
 	</div>
 	<div class="span10 cards" >
+		<a href="#" id="viewCards" class="btn">View Cards</a> 
 		<h1>Cards:</h1>
 		<% if @group.reg_cards.any? %>
 		      <ul>

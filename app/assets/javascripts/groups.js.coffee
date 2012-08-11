@@ -17,7 +17,13 @@ card_sequence = ->
 												alert ("Question Time!")
 												display()
 												false
-											, $("#interval").val()*1000 if window.intRegex.test($("#interval").val()) && $("#interval").val() > 0
+											, $("#interval").val()*60000 if window.intRegex.test($("#interval").val()) && $("#interval").val() > 0
+
+view_cards = ->
+		window.alertInterval = setInterval ->
+												display()
+												false
+											, 1000
 
 reset_displayed = ->
 		gon.reg_cards[x].displayed = false for x in [0..window.num_cards-1] 
@@ -31,7 +37,17 @@ cancel_timer = ->
 $ ->
 	$('.nav-tabs').button()
 
+	$('#viewCards').click ->
+		window.repeat = 0
+		window.count = 0
+		window.num_displayed = 0
+		reset_displayed()
+		window.num_cards = gon.reg_cards.length if gon
+		window.times = window.num_cards
+		view_cards()
+
 	$("#startTimer").click ->
+		window.repeat = 1
 		window.count = 0
 		window.num_displayed = 0
 		reset_displayed()

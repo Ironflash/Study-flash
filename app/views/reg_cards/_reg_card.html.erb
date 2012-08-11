@@ -1,12 +1,13 @@
 <li class="reg_card">
-    <span class="question"><%= reg_card.question %></span>
-    <span class="answer">
+    <span class="question"><%= reg_card.question %>
+    <!-- <span class="answer">
       Answer: <%= reg_card.answer %>
+    </span> -->
       <% if current_user.admin? || current_user.id == @reg_card.user_id %>
       		<span class="settings">
       		<%= link_to "edit", edit_reg_card_path(reg_card)%>	|
 			<%= link_to "delete", reg_card, method: :delete, data: { confirm: "You sure?",class: "settings"}, title: reg_card.question%>
 			</span>
-	  <%end%>
-    </span>
+	  <%end%> 
+	</span>
 </li>
