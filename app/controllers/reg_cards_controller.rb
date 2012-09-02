@@ -62,7 +62,7 @@ class RegCardsController < ApplicationController
     respond_to do |format|
       if @reg_card.update_attributes(params[:reg_card])
         flash[:success] = "Card Updated!"
-        format.html { redirect_to @reg_card }
+        format.html { redirect_to group_path(@reg_card.group) }
         format.json { head :no_content }
       else
         format.html { render "edit" }
